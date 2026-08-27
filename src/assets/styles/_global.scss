@@ -1,0 +1,89 @@
+@import "variables";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  height: 100%;
+}
+
+.container {
+  max-width: $container-width;
+  margin: 0 auto;
+}
+
+.button {
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  background: #709FDC;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 0;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #FFFFFF;
+
+  &:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  box-sizing: border-box;
+  border: 2px solid $blue-color;
+  gap: 5px;
+  border-radius: 3px;
+  padding: 20px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #A8ABA7;
+}
+
+.mat-menu-item {
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  color: $main-color;
+}
+
+slider {
+  position: relative;
+  .carousel-control-prev {
+    position: absolute;
+    left: -81px;
+
+  }
+ .carousel-control-next {
+   position: absolute;
+   right: -81px;
+   color: #FFFFFF;
+ }
+  .carousel-indicators {
+    button {
+      box-sizing: border-box !important;
+      width: 10px !important;
+      height: 10px !important;
+      min-width: 10px !important;
+      min-height: 10px !important;
+      border-radius: 50% !important;
+      background-color: transparent !important;
+      border: 1px solid #ffffff !important;
+      background-clip: padding-box !important;
+      opacity: 0.7 !important;
+      margin: 0 4px !important;
+      padding: 0 !important;
+
+
+      &.active {
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+        opacity: 1 !important;
+      }
+    }
+  }
+}

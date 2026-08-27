@@ -1,0 +1,56 @@
+<div class="modal" [formGroup]="modalForm">
+  <button type="button" class="close-btn-svg" (click)="close()" aria-label="Закрыть">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="1.93562" y1="2.64999" x2="13.9564" y2="14.6708" stroke="#BEBEBE" stroke-linecap="round"/>
+      <line x1="13.9236" y1="2.62978" x2="1.90277" y2="14.6506" stroke="#BEBEBE" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+    <div class="auth-form">
+      <div class="auth-title">Заявка на услугу</div>
+      <div class="auth-inputs">
+        <div class="auth-input">
+          <select>
+            <option></option>
+          </select>
+        </div>
+
+        <div class="auth-input">
+          <input type="text" class="input" placeholder="Ваше имя"
+                 [ngStyle]="{'border-color': modalForm.get('name')?.invalid &&
+                 (modalForm.get('name')?.dirty || modalForm.get('name')?.touched) ? 'red' : ''}"
+                 formControlName="name">
+
+          <div class="invalid-feedback"
+               *ngIf="modalForm.get('name')?.invalid && (modalForm.get('name')?.dirty || modalForm.get('name')?.touched)">
+                <span *ngIf="modalForm.get('name')?.errors?.['required']">
+                Имя обязателено для заполнения.
+                </span>
+            <span *ngIf="modalForm.get('name')?.errors?.['pattern']">
+                Пожалуйста, введите корректное имя.
+          </span>
+          </div>
+        </div>
+
+        <div class="auth-input">
+          <input type="text" class="input" placeholder="Ваш номер телефона"
+                 [ngStyle]="{'border-color': modalForm.get('phone')?.invalid &&
+                 (modalForm.get('phone')?.dirty || modalForm.get('phone')?.touched) ? 'red' : ''}"
+                 formControlName="phone">
+
+          <div class="invalid-feedback"
+               *ngIf="modalForm.get('phone')?.invalid && (modalForm.get('phone')?.dirty || modalForm.get('phone')?.touched)">
+                <span *ngIf="modalForm.get('phone')?.errors?.['required']">
+                Номер телефона обязателен для заполнения.
+                </span>
+            <span *ngIf="modalForm.get('phone')?.errors?.['pattern']">
+                Пожалуйста, введите корректный номер телефона.
+          </span>
+          </div>
+        </div>
+      </div>
+      <div class="auth-button">
+        <button class="button" [disabled]="modalForm.invalid" (click)="modal()">Оставить заявку</button>
+      </div>
+  </div>
+</div>

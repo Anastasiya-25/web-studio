@@ -1,0 +1,107 @@
+@import "../../../../assets/styles/variables";
+
+footer.footer {
+  padding-top: 40px;
+  padding-bottom: 54px;
+  background-color: #B9D5FD;
+  flex: 0 0 auto;
+
+  .container {
+    //display: flex;
+
+    .footer-block {
+      //margin-bottom: 40px;
+      display: flex;
+      align-items: start;
+
+      &.menu {
+        align-items: center;
+        margin-bottom: 40px;
+      }
+
+      .footer-menu {
+        margin-left: 40px;
+
+        .menu-link ul {
+          margin: 0;
+          padding: 0;
+          display: flex;
+
+          li {
+            margin-right: 20px;
+            list-style: none;
+
+            a {
+              font-size: 16px;
+              color: $main-color;
+              cursor: pointer;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+
+      .footer-block-info {
+        margin-right: 60px;
+        font-size: 16px;
+
+        &.address {
+          width: 253px;
+        }
+
+        .footer-block-info-title {
+          font-family: Montserrat, sans-serif;
+          font-weight: 500;
+          margin-bottom: 10px;
+          color: $blue-color;
+
+          .media {
+            margin-bottom: 15px;
+          }
+        }
+
+        .footer-block-info-text {
+          color: $main-color;
+          line-height: 130%;
+
+          &.email {
+            font-size: 12px;
+          }
+
+          a {
+            text-decoration: none;
+            color: $main-color;
+          }
+        }
+
+        .footer-block-info-action {
+          margin-top: 10px;
+
+          .button {
+            font-size: 12px;
+            font-family: Montserrat, sans-serif;
+            font-weight: 500;
+            width: 153px;
+            margin-bottom: 10px;
+          }
+        }
+
+        .footer-block-info-media {
+          display: flex;
+          align-items: center;
+
+          svg {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+
+    .footer-rights {
+      margin-top: 6px;
+      font-size: 16px;
+      color: $blue-color;
+
+    }
+  }
+}

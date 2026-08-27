@@ -1,0 +1,349 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
+
+.main {
+  padding-bottom: 120px;
+
+  .container {
+
+  }
+}
+
+.services {
+  .container {
+    .services-title {
+      @include head-lora-38;
+      margin-bottom: 40px;
+    }
+
+    .services-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 26px;
+
+      .service-item {
+        width: 290px;
+        height: 498px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+
+        .service-item-image {
+          width: 291px;
+          height: 291px;
+          border-radius: 5px;
+          background-size: cover;
+          background-position: center;
+        }
+
+        .service-item-title {
+          margin-top: 15px;
+          margin-bottom: 10px;
+          font-family: Montserrat, sans-serif;
+          font-weight: 500;
+          font-size: 20px;
+          color: $blue-color;
+        }
+
+        .service-item-content {
+          margin-bottom: 15px;
+          font-size: 14px;
+          line-height: 130%;
+          color: $main-color;
+          height: 90px;
+        }
+
+        .service-item-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+
+          .service-item-price {
+            margin-right: 21px;
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: $blue-color;
+          }
+
+          .service-item-action {
+            .button {
+              width: 163px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.about {
+  margin-top: 120px;
+  margin-bottom: 120px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .about-image {
+      border-radius: 5px;
+      background-size: cover;
+      background-position: center;
+      margin-right: 68px;
+    }
+
+    .about-content {
+
+      .about-title {
+        @include head-lora-38;
+        margin-bottom: 20px;
+      }
+
+      .about-description {
+        font-size: 14px;
+        line-height: 130%;
+        color: #1E1A2B;
+        margin-bottom: 40px;
+        max-width: 566px;
+
+        span {
+          font-family: Montserrat, sans-serif;
+          font-weight: 500;
+        }
+      }
+
+      .about-advantages {
+        .advantages-title {
+          font-family: Lora, sans-serif;
+          font-weight: 400;
+          font-size: 26px;
+          color: $blue-color;
+          margin-bottom: 20px;
+        }
+
+        .about-advantages-items {
+          display: grid;
+          grid-template-columns: repeat(2, 316px);
+          gap: 20px;
+
+          .advantages-item {
+            display: flex;
+            align-items: center;
+
+            .advantages-item-circle {
+              flex-shrink: 0;
+              width: 40px;
+              height: 40px;
+              min-width: 40px;
+              min-height: 40px;
+              border-radius: 50%;
+              background-color: #B9D5FD;
+              position: relative;
+              margin-right: 20px;
+
+              .advantages-item-number {
+                position: absolute;
+                font-family: Lora, sans-serif;
+                font-weight: 500;
+                font-size: 50px;
+                color: $blue-color;
+                left: 50%;
+                transform: translateX(-50%);
+                top: -25px;
+              }
+            }
+
+            .advantages-item-text {
+              font-size: 14px;
+              line-height: 130%;
+              color: #1E1A2B;
+
+              span {
+                font-family: Montserrat, sans-serif;
+                font-weight: 500;
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.articles {
+  margin-bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  min-height: 726px;
+  position: relative;
+
+  .container {
+    .articles-title {
+      @include head-lora-38;
+      margin-bottom: 40px;
+    }
+
+    .articles-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .articles-link {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-top: auto;
+      position: absolute;
+      right: 112px;
+
+
+      div {
+        font-family: Montserrat, sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        color: $blue-color;
+        margin-right: 14px;
+      }
+    }
+  }
+}
+
+.reviews {
+  margin-bottom: 120px;
+
+  .container {
+    .reviews-title {
+      @include head-lora-38;
+      margin-bottom: 20px;
+    }
+
+    .reviews-carousel {
+      position: relative;
+
+      .reviews-items {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        owl-carousel-o {
+          flex: 1 1 100%;
+          width: 100%;
+          min-width: 0;
+
+          .reviews-item {
+            padding: 30px;
+            box-sizing: border-box;
+            width: 396px;
+            height: 267px;
+            border-radius: 5px;
+            border: 1px solid $blue-color;
+
+            .reviews-item-personal {
+              display: flex;
+              align-items: center;
+              margin-bottom: 15px;
+
+              .reviews-item-photo {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background-size: cover;
+                background-position: center;
+              }
+
+              .reviews-item-name {
+                margin-left: 26px;
+                font-family: Montserrat, sans-serif;
+                font-weight: 600;
+                font-size: 18px;
+                color: $blue-color;
+              }
+            }
+
+            .reviews-item-text {
+              font-size: 16px;
+              line-height: 140%;
+              color: $main-color;
+              width: 336px;
+            }
+          }
+        }
+        .reviews-arrows {
+          display: flex;
+
+          a {
+            top: calc(50% - 5px);
+            display: flex;
+            position: absolute;
+            cursor: pointer;
+
+            &.move-backward {
+              left: -41px;
+            }
+
+            &.move-forward {
+              right: -41px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.contacts {
+  margin-bottom: 120px;
+  .container {
+    display: flex;
+    align-items: start;
+    .map iframe {
+      vertical-align: bottom;
+    }
+    .contacts-info {
+      margin-left: 26px;
+
+      .contacts-info-title {
+        @include head-lora-38;
+        margin-bottom: 20px;
+      }
+
+      .contacts-info-block {
+        max-width: 462px;
+        margin-bottom: 20px;
+
+        .contacts-info-block-title {
+          font-family: Montserrat, sans-serif;
+          font-weight: 500;
+          font-size: 20px;
+          color: $blue-color;
+          margin-bottom: 10px;
+        }
+
+        .contacts-info-block-text {
+          font-size: 14px;
+          line-height: 130%;
+          color: $main-color;
+        }
+
+        .contacts-info-block-media {
+          display: flex;
+          align-items: center;
+
+          a {
+            display: block;
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+ }
+}

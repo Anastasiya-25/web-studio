@@ -1,0 +1,63 @@
+@import "../../../../assets/styles/variables";
+
+header.header {
+  padding: 40px 0;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+
+    .logo {
+      margin-right: 100px;
+    }
+
+    .header-menu {
+      margin-right: 227px;
+
+      .menu-link ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+
+        li {
+          margin-right: 30px;
+          list-style: none;
+
+          &.active {
+            color: $blue-color;
+          }
+
+          a {
+            font-size: 16px;
+            color: $main-color;
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    .header-phone {
+      color: $blue-color;
+      text-decoration: none;
+      font-size: 16px;
+      margin-right: 120px;
+    }
+
+    .header-auth {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+
+      .header-auth-text {
+        margin-left: 7px;
+        font-size: 16px;
+        color: $main-color;
+      }
+    }
+  }
+}

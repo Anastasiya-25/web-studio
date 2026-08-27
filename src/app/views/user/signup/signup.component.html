@@ -1,0 +1,78 @@
+<section class="signup" [formGroup]="signupForm">
+  <div class="container">
+    <div class="auth-form">
+      <div class="auth-title">Регистрация на сайте</div>
+      <div class="auth-inputs">
+        <div class="auth-input">
+          <input type="text" class="input" placeholder="Ваше имя"
+                 [ngStyle]="{'border-color': signupForm.get('name')?.invalid &&
+                 (signupForm.get('name')?.dirty || signupForm.get('name')?.touched) ? 'red' : ''}"
+                 formControlName="name">
+
+          <div class="invalid-feedback"
+               *ngIf="signupForm.get('name')?.invalid && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched)">
+                <span *ngIf="signupForm.get('name')?.errors?.['required']">
+                Имя обязателено для заполнения.
+                </span>
+            <span *ngIf="signupForm.get('name')?.errors?.['pattern']">
+                Пожалуйста, введите корректное имя.
+          </span>
+          </div>
+        </div>
+
+        <div class="auth-input">
+          <input type="text" class="input" placeholder="Электронная почта"
+                 [ngStyle]="{'border-color': signupForm.get('email')?.invalid &&
+                 (signupForm.get('email')?.dirty || signupForm.get('email')?.touched) ? 'red' : ''}"
+                 formControlName="email">
+
+          <div class="invalid-feedback"
+               *ngIf="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">
+                <span *ngIf="signupForm.get('email')?.errors?.['required']">
+                Email обязателен для заполнения.
+                </span>
+            <span *ngIf="signupForm.get('email')?.errors?.['pattern']">
+                Пожалуйста, введите корректный адрес электронной почты.
+          </span>
+          </div>
+        </div>
+
+        <div class="auth-input">
+          <input type="password" class="input" placeholder="Пароль"
+                 [ngStyle]="{'border-color': signupForm.get('password')?.invalid &&
+                 (signupForm.get('password')?.dirty || signupForm.get('password')?.touched) ? 'red' : ''}"
+                 formControlName="password">
+
+          <div class="invalid-feedback"
+               *ngIf="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)">
+                <span *ngIf="signupForm.get('password')?.errors?.['required']">
+                Пароль обязателен для заполнения.
+                </span>
+            <span *ngIf="signupForm.get('password')?.errors?.['pattern']">
+                Пожалуйста, введите корректный пароль.
+            </span>
+          </div>
+        </div>
+
+        <div class="auth-checkbox">
+          <input type="checkbox" id="agree" formControlName="agree">
+          <label for="agree">Я принимаю <a [routerLink]="['/policy']" fragment="terms" target="_blank">условия пользовательского соглашения</a> и даю
+            <a [routerLink]="['/policy']" fragment="privacy" target="_blank">согласие на обработку персональных данных.</a></label>
+        </div>
+      </div>
+      <div class="auth-button">
+        <button class="button" [disabled]="signupForm.invalid" (click)="signup()">Зарегистрироваться</button>
+      </div>
+
+      <div class="auth-link">
+        Уже есть аккаунт? <a routerLink="/login">Войдите</a>
+      </div>
+
+    </div>
+
+    <div class="page-image">
+      <img src="/assets/images/page/signup-page.png" alt="user">
+    </div>
+  </div>
+</section>
+
