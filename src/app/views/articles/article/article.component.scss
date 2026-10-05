@@ -1,0 +1,258 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.article {
+  padding-top: 80px;
+  padding-bottom: 120px;
+
+  .container {
+
+    .article-link {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      margin-bottom: 60px;
+
+      .article-link-main {
+        color: #B9D5FD;
+        text-decoration: none;
+        margin-right: 1px;
+      }
+
+      .article-link-title {
+        font-family: Montserrat, sans-serif;
+        font-weight: 500;
+        color: $blue-color;
+      }
+    }
+
+    .article-lead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 60px;
+
+      .article-summary {
+        max-width: 607px;
+        margin-right: 106px;
+
+        .article-summary-title {
+          @include head-lora-38;
+          line-height: 130%;
+          margin-bottom: 40px;
+        }
+
+        .article-summary-preview {
+          font-size: 20px;
+          line-height: 130%;
+          color: $blue-color;
+        }
+      }
+
+      .article-image {
+        width: 527px;
+        height: 320px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        background-size: cover;
+        background-position: center;
+        flex-shrink: 0;
+      }
+    }
+
+    .article-body {
+      display: flex;
+      justify-content: space-between;
+
+      .article-body-content {
+        max-width: 818px;
+        margin-right: 132px;
+
+        .article-body-text {
+          h1 {
+            display: none;
+          }
+          h3 {
+            font-family: Montserrat, sans-serif;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 130%;
+            color: $blue-color;
+            margin-bottom: 20px;
+            margin-top: 40px;
+          }
+
+          p {
+            font-size: 14px;
+            line-height: 130%;
+            color: $main-color;
+          }
+
+          b, strong {
+            font-family: Montserrat, sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 130%;
+            color: $main-color;
+          }
+
+          a {
+            color: #2563eb;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+
+            &:hover {
+              color: #1d4ed8;
+            }
+          }
+        }
+
+        .article-media {
+          display: flex;
+          align-items: center;
+          margin-bottom: 61px;
+
+          .article-media-text {
+            font-family: Montserrat, sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            color: $blue-color;
+            margin-right: 20px;
+          }
+
+          .article-media-links {
+            display: flex;
+            align-items: center;
+
+            a {
+              text-decoration: none;
+              margin-right: 14px;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .article-comments {
+
+          .article-comments-title {
+            @include head-lora-38;
+            margin-bottom: 20px;
+          }
+
+          .article-comments-auth {
+            font-size: 14px;
+            color: $main-color;
+            margin-bottom: 60px;
+
+            a {
+              text-decoration: none;
+              color: $blue-color;
+            }
+          }
+
+          .article-comment {
+            margin-bottom: 40px;
+
+            .article-comment-head {
+              display: flex;
+              align-items: center;
+              margin-bottom: 15px;
+
+              .article-comment-photo {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                box-sizing: border-box;
+                background-size: cover;
+                background-position: center;
+                margin-right: 26px;
+                border: 2px solid $blue-color;
+
+                img {
+                  width: 100%;
+                }
+              }
+
+              .article-comment-head-info {
+                font-family: Montserrat, sans-serif;
+                font-weight: 600;
+                font-size: 18px;
+
+                .article-comment-name {
+                  color: $blue-color;
+                  margin-bottom: 10px;
+                }
+
+                .article-comment-date {
+                  color: #BEBEBE;
+                }
+              }
+            }
+
+            .article-comment-text {
+              font-size: 14px;
+              line-height: 140%;
+              color: $main-color;
+              margin-bottom: 39px;
+            }
+
+            .article-comment-reactions {
+              display: flex;
+              align-items: center;
+
+              .article-comment-reaction {
+                display: flex;
+                align-items: center;
+                margin-right: 15px;
+
+                .article-comment-reaction-count {
+                  font-family: Montserrat, sans-serif;
+                  font-weight: 600;
+                  font-size: 14px;
+                  color: $main-color;
+                  margin-right: 2px;
+                }
+
+                a {
+                  text-decoration: none;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+          .article-comments-link {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            .article-comments-link-text {
+              font-family: Montserrat, sans-serif;
+              font-weight: 500;
+              font-size: 20px;
+              color: $blue-color;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+
+      .article-related {
+        display: block;
+        margin-top: 120px;
+
+        .article-related-title {
+          font-family: Lora, sans-serif;
+          font-weight: 400;
+          font-size: 26px;
+          color: $blue-color;
+          margin-bottom: 20px;
+        }
+
+        article-card {
+          display: block;
+          margin-bottom: 60px;
+        }
+      }
+    }
+  }
+}

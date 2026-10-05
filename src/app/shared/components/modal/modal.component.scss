@@ -1,0 +1,104 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  box-sizing: border-box;
+
+
+  .modal-content {
+    width: 727px;
+    height: 489px;
+    border-radius: 10px;
+    position: relative;
+    padding-top: 52px;
+    //padding-bottom: 86px;
+    align-items: center;
+    border: 1px solid $blue-color;
+
+    .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      font-size: 16px;
+      border: none;
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .auth-form {
+      margin-top: 0;
+      margin-bottom: 0;
+
+      .auth-title {
+        margin-bottom: 20px;
+        line-height: 130%;
+        max-width: 406px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+
+      select {
+        width: 422px;
+        box-sizing: border-box;
+        border: 2px solid $blue-color;
+        border-radius: 3px;
+        padding: 20px;
+        font-family: Montserrat, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        color: $blue-color;
+      }
+
+      .auth-inputs {
+        width: 422px;
+      }
+    }
+
+    .button {
+      width: 422px;
+    }
+    .send-error {
+      font-size: 14px;
+      color: #BF0303;
+      margin-top: 10px;
+    }
+
+    .thanks-block {
+      padding: 118px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+
+      .thanks-block-title {
+        @include head-lora-38;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-family: Montserrat, sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        color: #1E1A2B;
+        margin-bottom: 40px;
+      }
+      .button {
+        width: 74px;
+      }
+    }
+  }
+}

@@ -6,5 +6,5 @@
       article.description
     }}
   </div>
-  <a routerLink="/article/url" class="article-card-action">Читать дальше</a>
+  <a [routerLink]="'/article/' + article.url" class="article-card-action">Читать дальше</a>
 </div>

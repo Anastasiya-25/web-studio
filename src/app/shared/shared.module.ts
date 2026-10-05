@@ -16,7 +16,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule
   ],
   exports: [
-    ArticleCardComponent
+    ArticleCardComponent,
+    ModalComponent
   ]
 })
 export class SharedModule { }

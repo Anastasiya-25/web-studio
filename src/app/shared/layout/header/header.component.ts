@@ -4,6 +4,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {UserInfoType} from "../../../../types/user-info.type";
 import {DefaultResponseType} from "../../../../types/default-response.type";
+import {distinctUntilChanged} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -21,24 +22,34 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('0. Header Component initialized!');
-
     this.authService.isLogged$
+      .pipe(
+        distinctUntilChanged()
+      )
       .subscribe((isLoggedIn: boolean) => {
-        console.log('1. Значение isLoggedIn:', isLoggedIn);
         this.isLogged = isLoggedIn;
 
         if (isLoggedIn) {
-          console.log('2. Отправляем запрос getUserInfo...');
           this.authService.getUserInfo()
-            .subscribe((data: UserInfoType | DefaultResponseType) => {
-              console.log('3. Успешный ответ сервера:', data);
-              if ((data as DefaultResponseType).error !== undefined) {
-                throw new Error((data as DefaultResponseType).message);
+            .subscribe({
+              next: (data: UserInfoType | DefaultResponseType) => {
+                if ((data as DefaultResponseType).error !== undefined) {
+                  console.error((data as DefaultResponseType).message);
+                  this.userName = '';
+                  return;
+                }
+
+                const userInfo = data as UserInfoType;
+                this.userName = userInfo.name;
+              },
+              error: (error) => {
+                console.error('Ошибка при получении данных пользователя:', error);
+                this.userName = '';
+                this.authService.removeTokens();
               }
-                console.log(data as UserInfoType);
-              this.userName = (data as UserInfoType).name;
-            })
+            });
+        } else {
+          this.userName = '';
         }
       });
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable, ReplaySubject, Subject, tap, throwError} from "rxjs";
+import {BehaviorSubject, Observable, tap, throwError} from "rxjs";
 import {DefaultResponseType} from "../../../types/default-response.type";
 import {LoginResponseType} from "../../../types/login-response.type";
 import {environment} from "../../../environments/environment";
@@ -14,19 +14,19 @@ export class AuthService {
   public refreshTokenKey: string = 'refreshToken';
   public userIdKey: string = 'userId';
 
-  public isLogged$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  public isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.getIsLoggedIn());
   private isLogged: boolean = false;
 
   constructor(private http: HttpClient) {
-    this.isLogged = !!localStorage.getItem(this.accessTokenKey);
+    this.isLogged$.next(this.getIsLoggedIn());
   }
 
   login(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
     return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + '/login', {email, password, rememberMe});
   }
 
-  public getIsLoggedIn() {
-    return this.isLogged;
+  public getIsLoggedIn(): boolean {
+    return !!localStorage.getItem(this.accessTokenKey);
   }
 
   public setTokens(accessToken: string, refreshToken: string): void {
@@ -39,8 +39,9 @@ export class AuthService {
   public removeTokens(): void {
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
-    this.isLogged = false;
-    this.isLogged$.next(false);
+      this.isLogged = false;
+      this.isLogged$.next(false);
+
   }
 
   public getTokens(): { accessToken: string | null, refreshToken: string | null } {
@@ -62,9 +63,7 @@ export class AuthService {
     }
   }
   getUserInfo(): Observable<UserInfoType | DefaultResponseType> {
-    this.accessTokenKey = localStorage.getItem('accessToken') || '';
-    const params = new HttpParams().set('accessToken', this.accessTokenKey);
-    return this.http.get<UserInfoType | DefaultResponseType>(environment.api + 'users', { params });
+    return this.http.get<UserInfoType | DefaultResponseType>(environment.api + 'users');
   }
 
   logout(): Observable<DefaultResponseType> {
@@ -87,6 +86,15 @@ export class AuthService {
       email,
       password
     });
+  }
+
+  refresh(): Observable<DefaultResponseType | LoginResponseType> {
+    const tokens = this.getTokens();
+    if (tokens && tokens.refreshToken) {
+      return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'refresh',
+        {refreshToken: tokens.refreshToken});
+    }
+    return throwError(() => new Error('Can not find token'));
   }
 
 }

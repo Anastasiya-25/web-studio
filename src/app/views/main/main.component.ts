@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ArticleType} from "../../../types/article.type";
 import {ArticlesService} from "../../shared/services/articles.service";
 import {OwlOptions} from "ngx-owl-carousel-o";
+import {DefaultResponseType} from "../../../types/default-response.type";
+import {ModalService} from "../../shared/services/modal.service";
 
 @Component({
   selector: 'app-main',
@@ -55,14 +57,21 @@ export class MainComponent implements OnInit {
     }
   ]
 
-  constructor(private articlesService: ArticlesService) {
+  constructor(private articlesService: ArticlesService, private modalService: ModalService) {
   }
 
   ngOnInit(): void {
     this.articlesService.getTopArticles()
-      .subscribe((data: ArticleType[]) => {
-        this.articles = data;
+      .subscribe((data: DefaultResponseType | ArticleType[]) => {
+        if ((data as DefaultResponseType).error !== undefined) {
+          throw new Error((data as DefaultResponseType).message);
+        }
+        this.articles = data as ArticleType[];
       });
+  }
+
+  openModal(service: string): void {
+    this.modalService.open(service);
   }
 
 }

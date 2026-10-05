@@ -30,6 +30,7 @@
     flex-direction: column;
     justify-content: start;
     z-index: 100;
+    transition: all 0.5s ease-in-out;
 
     .slider-pre-title {
       font-family: Montserrat, sans-serif;
@@ -67,8 +68,12 @@
     }
 
     .slider-action {
+      position: relative;
+      z-index: 1000;
+      pointer-events: auto;
       .button {
         width: 163px;
+        cursor: pointer;
         &.first-button {
           margin-top: 20px;
         }

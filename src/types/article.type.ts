@@ -1,4 +1,5 @@
 import {CategoryType} from "./category.type";
+import {CommentType} from "./comment.type";
 
 export type ArticleType = {
   id: string,
@@ -8,4 +9,7 @@ export type ArticleType = {
   date?: string,
   category: CategoryType,
   url: string,
+  text?: string,
+  comments?: CommentType[],
+  commentsCount?: number,
 }
