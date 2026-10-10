@@ -1,12 +1,17 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ArticleType} from "../../../../types/article.type";
 import {ArticlesService} from "../../../shared/services/articles.service";
 import {DefaultResponseType} from "../../../../types/default-response.type";
 import {environment} from "../../../../environments/environment";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import {CommentType} from "../../../../types/comment.type";
+import {AddCommentType, CommentType} from "../../../../types/comment.type";
 import {CommentService} from "../../../shared/services/comment.service";
+import {AuthService} from "../../../core/auth/auth.service";
+import {FormBuilder, Validators} from "@angular/forms";
+import {UserInfoType} from "../../../../types/user-info.type";
+import {HttpErrorResponse} from "@angular/common/http";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-article',
@@ -22,9 +27,17 @@ export class ArticleComponent implements OnInit {
   formattedText: SafeHtml = '';
   comments: CommentType[] = [];
   allCommentsCount: number = 0;
+  isLogged: boolean = false;
+  commentForm = this.fb.group({
+    comment: ['', Validators.required],
+  });
+  userName: string = '';
 
   constructor(private activatedRoute: ActivatedRoute, private articlesService: ArticlesService, private sanitizer: DomSanitizer,
-              private commentService: CommentService) { }
+              private commentService: CommentService, private authService: AuthService, private fb: FormBuilder, private router: Router,
+              private _snackBar: MatSnackBar) {
+    this.isLogged = this.authService.getIsLoggedIn();
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -40,12 +53,12 @@ export class ArticleComponent implements OnInit {
           }
         });
       this.articlesService.getRelativeArticle(params['url'])
-      .subscribe((relatedData: ArticleType[] | DefaultResponseType) => {
-        if ((relatedData as DefaultResponseType).error !== undefined) {
-          throw new Error((relatedData as DefaultResponseType).message);
-        }
-        this.relatedArticles = relatedData as ArticleType[];
-      });
+        .subscribe((relatedData: ArticleType[] | DefaultResponseType) => {
+          if ((relatedData as DefaultResponseType).error !== undefined) {
+            throw new Error((relatedData as DefaultResponseType).message);
+          }
+          this.relatedArticles = relatedData as ArticleType[];
+        });
     });
 
   }
@@ -75,6 +88,67 @@ export class ArticleComponent implements OnInit {
       },
       error: (err) => console.error('Ошибка подгрузки комментариев:', err)
     });
+  }
+
+  addComment() {
+    if (this.commentForm.valid && this.commentForm.value.comment) {
+      const now = new Date();
+      const formattedDate = new Intl.DateTimeFormat('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).format(now).replace(',', '');
+
+      if (this.isLogged) {
+        this.authService.getUserInfo()
+          .subscribe({
+            next: (data: UserInfoType | DefaultResponseType) => {
+              if ((data as DefaultResponseType).error !== undefined) {
+                console.error((data as DefaultResponseType).message);
+                this.userName = '';
+                return;
+              }
+
+              const userInfo = data as UserInfoType;
+              this.userName = userInfo.name;
+            },
+            error: (error) => {
+              console.error('Ошибка при получении данных пользователя:', error);
+              this.userName = '';
+              this.authService.removeTokens();
+            }
+          });
+      } else {
+        this.userName = '';
+      }
+
+      const paramsObject: AddCommentType = {
+        id: this.article.id,
+        text: this.commentForm.value.comment
+      }
+
+      this.commentService.addComments(paramsObject)
+        .subscribe({
+          next: (data: AddCommentType | DefaultResponseType) => {
+            if ((data as DefaultResponseType).error !== undefined) {
+              throw new Error((data as DefaultResponseType).message);
+            }
+            this.commentForm.reset();
+            this.router.navigate(['/article/' + this.article.url]);
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error && errorResponse.error.message) {
+              this._snackBar.open(errorResponse.error.message);
+            } else {
+              this._snackBar.open('Ошибка добавления комментария');
+              console.log(errorResponse.error.message);
+            }
+          }
+        });
+    }
   }
 
 }

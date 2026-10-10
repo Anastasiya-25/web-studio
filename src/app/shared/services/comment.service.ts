@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {CommentType} from "../../../types/comment.type";
+import {AddCommentType, CommentType} from "../../../types/comment.type";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {DefaultResponseType} from "../../../types/default-response.type";
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +19,9 @@ export class CommentService {
       .set('article', id);
 
     return this.http.get<{ allCount: number, comments: CommentType[]}>(environment.api + 'comments', { params });
+  }
+
+  addComments(params: AddCommentType): Observable<AddCommentType | DefaultResponseType> {
+    return this.http.post<AddCommentType | DefaultResponseType>(environment.api + 'comments', params, {withCredentials: true});
   }
 }

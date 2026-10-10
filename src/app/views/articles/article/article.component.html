@@ -7,7 +7,7 @@
     <div class="article-lead">
       <div class="article-summary">
         <div class="article-summary-title">{{ article.title }}</div>
-        <div class="article-summary-preview">{{article.description}}
+        <div class="article-summary-preview">{{ article.description }}
         </div>
       </div>
       <div class="article-image" style="background-image: url({{serverStaticPath + article.image}})"></div>
@@ -68,9 +68,19 @@
 
         <div class="article-comments">
           <div class="article-comments-title">Комментарии к статье</div>
-          <div class="article-comments-auth">
+          <div class="article-comments-auth" *ngIf="!isLogged">
             Чтобы оставлять комментарии, <a routerLink="/login">войдите</a> или <a
             routerLink="/signup">зарегистрируйтесь</a>.
+          </div>
+          <div class="article-comments-inputs" [formGroup]="commentForm">
+           <textarea cols="30" rows="5" class="input" placeholder="Напишите Ваш комментарий к статье..."
+                     [ngStyle]="{'border-color': commentForm.get('comment')?.invalid
+                   && (commentForm.get('comment')?.dirty || commentForm.get('comment')?.touched) ? 'red' : ''}"
+                     formControlName="comment">
+           </textarea>
+            <div class="article-comments-action">
+              <button class="button" (click)="addComment()">Опубликовать комментарий</button>
+            </div>
           </div>
 
           <div class="article-comment" *ngFor="let comment of comments">
@@ -79,11 +89,11 @@
                 <img src="assets/images/page/comment-image.png" alt="Users photo">
               </div>
               <div class="article-comment-head-info">
-                <div class="article-comment-name">{{ comment.user.name }}</div>
+                <div class="article-comment-name">{{ comment.user.name}}</div>
                 <div class="article-comment-date">{{ comment.date }}</div>
               </div>
             </div>
-            <div class="article-comment-text">{{comment.text}}
+            <div class="article-comment-text">{{ comment.text }}
             </div>
             <div class="article-comment-reactions">
               <div class="article-comment-reaction">
@@ -103,17 +113,24 @@
                 <div class="article-comment-reaction-count">{{ comment.dislikesCount }}</div>
                 <a>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16.5197 5.65002L13.4197 3.25002C13.0197 2.85002 12.1197 2.65002 11.5197 2.65002H7.71973C6.51973 2.65002 5.21973 3.55002 4.91973 4.75002L2.51973 12.05C2.01973 13.45 2.91973 14.65 4.41973 14.65H8.41973C9.01973 14.65 9.51973 15.15 9.41973 15.85L8.91973 19.05C8.71973 19.95 9.31973 20.95 10.2197 21.25C11.0197 21.55 12.0197 21.15 12.4197 20.55L16.5197 14.45" stroke="#071739" stroke-width="1.5" stroke-miterlimit="10"/>
-                    <path d="M21.6201 5.65V15.45C21.6201 16.85 21.0201 17.35 19.6201 17.35H18.6201C17.2201 17.35 16.6201 16.85 16.6201 15.45V5.65C16.6201 4.25 17.2201 3.75 18.6201 3.75H19.6201C21.0201 3.75 21.6201 4.25 21.6201 5.65Z" stroke="#071739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path
+                      d="M16.5197 5.65002L13.4197 3.25002C13.0197 2.85002 12.1197 2.65002 11.5197 2.65002H7.71973C6.51973 2.65002 5.21973 3.55002 4.91973 4.75002L2.51973 12.05C2.01973 13.45 2.91973 14.65 4.41973 14.65H8.41973C9.01973 14.65 9.51973 15.15 9.41973 15.85L8.91973 19.05C8.71973 19.95 9.31973 20.95 10.2197 21.25C11.0197 21.55 12.0197 21.15 12.4197 20.55L16.5197 14.45"
+                      stroke="#071739" stroke-width="1.5" stroke-miterlimit="10"/>
+                    <path
+                      d="M21.6201 5.65V15.45C21.6201 16.85 21.0201 17.35 19.6201 17.35H18.6201C17.2201 17.35 16.6201 16.85 16.6201 15.45V5.65C16.6201 4.25 17.2201 3.75 18.6201 3.75H19.6201C21.0201 3.75 21.6201 4.25 21.6201 5.65Z"
+                      stroke="#071739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
               </div>
               <div class="article-comment-reaction">
                 <a>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#071739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 8V13" stroke="#071739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M11.9946 16H12.0036" stroke="#071739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+                          stroke="#071739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8V13" stroke="#071739" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                    <path d="M11.9946 16H12.0036" stroke="#071739" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round"/>
                   </svg>
                 </a>
               </div>

@@ -4,7 +4,6 @@ import {Observable} from "rxjs";
 import {ArticleType} from "../../../types/article.type";
 import {environment} from "../../../environments/environment";
 import {DefaultResponseType} from "../../../types/default-response.type";
-import {CommentType} from "../../../types/comment.type";
 
 @Injectable({
   providedIn: 'root'

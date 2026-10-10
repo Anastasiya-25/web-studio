@@ -8,3 +8,8 @@ export type CommentType = {
   dislikesCount: number,
   user: UserInfoType,
 }
+
+export type AddCommentType = {
+  id: string,
+  text: string,
+}

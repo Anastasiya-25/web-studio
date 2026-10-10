@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let authReq = req;
     if (tokens && tokens.accessToken) {
       authReq = req.clone({
-        headers: req.headers.set('x-access-token', tokens.accessToken),
+        headers: req.headers.set('x-auth', tokens.accessToken),
       });
     }
     return next.handle(authReq)
@@ -64,7 +64,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.authService.setTokens(refreshResult.accessToken, refreshResult.refreshToken);
             this.refreshTokenSubject.next(refreshResult.accessToken);
             const authReq = req.clone({
-              headers: req.headers.set('x-access-token', refreshResult.accessToken),
+              headers: req.headers.set('x-auth', refreshResult.accessToken),
             });
             return next.handle(authReq);
           }),
@@ -81,7 +81,7 @@ export class AuthInterceptor implements HttpInterceptor {
         switchMap((token) => {
           // Повторяем запрос с уже обновившимся токеном
           const authReq = req.clone({
-            headers: req.headers.set('x-access-token', token as string),
+            headers: req.headers.set('x-auth', token as string),
           });
           return next.handle(authReq);
         })
@@ -90,7 +90,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private handleAuthFailure(): void {
-    this.authService.removeTokens(); // или logout()
-    this.router.navigate(['/login']); // или на главную '/'
+    this.authService.removeTokens();
+    this.router.navigate(['/login']);
   }
 }
