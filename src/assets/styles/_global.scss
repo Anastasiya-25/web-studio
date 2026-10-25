@@ -8,6 +8,16 @@ html, body {
   height: 100%;
 }
 
+app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
 .container {
   max-width: $container-width;
   margin: 0 auto;
@@ -55,7 +65,8 @@ slider {
   position: relative;
   .carousel-control-prev {
     position: absolute;
-    left: -81px;
+    left: -17px;
+    width: 73px;
 
   }
  .carousel-control-next {
@@ -87,3 +98,8 @@ slider {
     }
   }
 }
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: $blue-color;
+}
+

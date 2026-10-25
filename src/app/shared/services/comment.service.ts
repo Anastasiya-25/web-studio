@@ -4,6 +4,7 @@ import {AddCommentType, CommentType} from "../../../types/comment.type";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {DefaultResponseType} from "../../../types/default-response.type";
+import {UserReaction, UserReactionAction} from "../../../types/userReaction.type";
 
 
 @Injectable({
@@ -22,6 +23,17 @@ export class CommentService {
   }
 
   addComments(params: AddCommentType): Observable<AddCommentType | DefaultResponseType> {
-    return this.http.post<AddCommentType | DefaultResponseType>(environment.api + 'comments', params, {withCredentials: true});
+    return this.http.post<AddCommentType | DefaultResponseType>(environment.api + 'comments', params);
+  }
+
+  getCommentsActions(articleId: string): Observable<UserReaction[] | DefaultResponseType> {
+    const params = new HttpParams()
+      .set('articleId', articleId);
+
+    return this.http.get<UserReaction[] | DefaultResponseType>(environment.api + 'comments/article-comment-actions', { params });
+  }
+
+  applyReaction(id: string, action: UserReactionAction): Observable<DefaultResponseType> {
+    return this.http.post<DefaultResponseType>(environment.api + 'comments/' + id + '/apply-action', { action });
   }
 }

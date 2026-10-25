@@ -1,4 +1,5 @@
 import {UserInfoType} from "./user-info.type";
+import {CommentReactionType} from "./userReaction.type";
 
 export type CommentType = {
   id: string,
@@ -7,9 +8,10 @@ export type CommentType = {
   likesCount: number,
   dislikesCount: number,
   user: UserInfoType,
+  userReaction?: CommentReactionType
 }
 
 export type AddCommentType = {
-  id: string,
+  article: string,
   text: string,
 }

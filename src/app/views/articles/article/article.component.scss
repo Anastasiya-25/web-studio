@@ -136,7 +136,6 @@
 
           .article-comments-title {
             @include head-lora-38;
-            margin-bottom: 20px;
           }
 
           .article-comments-auth {
@@ -150,8 +149,14 @@
             }
           }
 
+          .article-comment-first {
+            margin-top: 20px;
+            font-size: 14px;
+            color: $main-color;
+          }
+
           .article-comments-inputs {
-            padding-top: 20px;
+            padding-top: 40px;
             padding-bottom: 60px;
 
             textarea {
@@ -240,6 +245,13 @@
                 a {
                   text-decoration: none;
                   cursor: pointer;
+                }
+
+                &.active svg path{
+                  stroke: $blue-color;
+                }
+                &.active .article-comment-reaction-count {
+                  color: $blue-color;
                 }
               }
             }

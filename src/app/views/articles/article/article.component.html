@@ -72,7 +72,8 @@
             Чтобы оставлять комментарии, <a routerLink="/login">войдите</a> или <a
             routerLink="/signup">зарегистрируйтесь</a>.
           </div>
-          <div class="article-comments-inputs" [formGroup]="commentForm">
+          <div class="article-comment-first" *ngIf="allCommentsCount === 0">Будьте первым, кто оставит свой комментарий к статье!</div>
+          <div class="article-comments-inputs" [formGroup]="commentForm"  *ngIf="isLogged">
            <textarea cols="30" rows="5" class="input" placeholder="Напишите Ваш комментарий к статье..."
                      [ngStyle]="{'border-color': commentForm.get('comment')?.invalid
                    && (commentForm.get('comment')?.dirty || commentForm.get('comment')?.touched) ? 'red' : ''}"
@@ -96,9 +97,10 @@
             <div class="article-comment-text">{{ comment.text }}
             </div>
             <div class="article-comment-reactions">
-              <div class="article-comment-reaction">
+              <div class="article-comment-reaction"
+                   [class.active]="comment.userReaction === 'like'" >
                 <div class="article-comment-reaction-count">{{ comment.likesCount }}</div>
-                <a>
+                <a (click)="onLike(comment.id)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M7.47998 18.35L10.58 20.75C10.98 21.15 11.88 21.35 12.48 21.35H16.28C17.48 21.35 18.78 20.45 19.08 19.25L21.48 11.95C21.98 10.55 21.08 9.34997 19.58 9.34997H15.58C14.98 9.34997 14.48 8.84997 14.58 8.14997L15.08 4.94997C15.28 4.04997 14.68 3.04997 13.78 2.74997C12.98 2.44997 11.98 2.84997 11.58 3.44997L7.47998 9.54997"
@@ -109,9 +111,10 @@
                   </svg>
                 </a>
               </div>
-              <div class="article-comment-reaction">
+              <div class="article-comment-reaction"
+                   [class.active]="comment.userReaction === 'dislike'">
                 <div class="article-comment-reaction-count">{{ comment.dislikesCount }}</div>
-                <a>
+                <a (click)="onDislike(comment.id)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M16.5197 5.65002L13.4197 3.25002C13.0197 2.85002 12.1197 2.65002 11.5197 2.65002H7.71973C6.51973 2.65002 5.21973 3.55002 4.91973 4.75002L2.51973 12.05C2.01973 13.45 2.91973 14.65 4.41973 14.65H8.41973C9.01973 14.65 9.51973 15.15 9.41973 15.85L8.91973 19.05C8.71973 19.95 9.31973 20.95 10.2197 21.25C11.0197 21.55 12.0197 21.15 12.4197 20.55L16.5197 14.45"
@@ -123,7 +126,7 @@
                 </a>
               </div>
               <div class="article-comment-reaction">
-                <a>
+                <a (click)="onViolateClick(comment.id)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
                           stroke="#071739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -137,8 +140,9 @@
             </div>
 
           </div>
-          <div class="article-comments-link">
-            <div class="article-comments-link-text" (click)="showMoreComments()">Загрузить ещё комментарии</div>
+          <div class="article-comments-link" *ngIf="comments.length < allCommentsCount">
+            <div class="article-comments-link-text"
+                 (click)="showMoreComments()">Загрузить ещё комментарии</div>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M10 14C9.41668 14 8.83335 13.775 8.39168 13.3334L2.95835 7.90003C2.71668 7.65837 2.71668 7.25837 2.95835 7.0167C3.20002 6.77503 3.60002 6.77503 3.84168 7.0167L9.27502 12.45C9.67502 12.85 10.325 12.85 10.725 12.45L16.1583 7.0167C16.4 6.77503 16.8 6.77503 17.0417 7.0167C17.2833 7.25837 17.2833 7.65837 17.0417 7.90003L11.6083 13.3334C11.1667 13.775 10.5833 14 10 14Z"

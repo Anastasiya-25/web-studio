@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {CategoryType} from "../../../../types/category.type";
 import {CategoriesService} from "../../services/categories.service";
@@ -35,6 +35,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder, private categoriesService: CategoriesService, public modalService: ModalService,
               private orderService: OrderService, private _snackBar: MatSnackBar) {
   }
+
 
   ngOnInit(): void {
     this.categoriesService.getCategories()
@@ -126,6 +127,14 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.modalForm.reset();
     this.modalService.open('');
     this.modalService.close();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('modal')) {
+      this.closeModal();
+    }
   }
 
 }

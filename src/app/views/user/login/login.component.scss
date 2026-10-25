@@ -1,15 +1,18 @@
 @import "../../../../assets/styles/auth-form";
 
-.login .container {
+.login {
   display: flex;
-  align-items: center;
-  flex: 1 0 auto;
+  flex-direction: column;
+  flex: 1;
 
-  .page-image {
-    margin-left: 185px;
+  .container {
+    display: flex;
+    align-items: center;
+    flex: 1;
 
-    img {
-      vertical-align: center;
+    .page-image {
+      margin-left: 185px;
+
     }
   }
 }

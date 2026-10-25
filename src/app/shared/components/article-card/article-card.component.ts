@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ArticleType} from "../../../../types/article.type";
-import {ArticlesService} from "../../services/articles.service";
 import {environment} from "../../../../environments/environment";
 
 @Component({
@@ -13,7 +12,7 @@ export class ArticleCardComponent implements OnInit {
   @Input() article!: ArticleType;
   serverStaticPath = environment.serverStaticPath;
 
-  constructor(private articlesService: ArticlesService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

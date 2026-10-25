@@ -5,6 +5,7 @@ import {AuthService} from "./auth.service";
 import {DefaultResponseType} from "../../../types/default-response.type";
 import {LoginResponseType} from "../../../types/login-response.type";
 import {Router} from "@angular/router";
+import {LoaderService} from "../../shared/services/loader.service";
 
 
 @Injectable()
@@ -14,30 +15,30 @@ export class AuthInterceptor implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   constructor(private authService: AuthService, private router: Router,
-  ) {
+              private loaderService: LoaderService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // this.loaderService.show();
+    this.loaderService.show();
     const tokens = this.authService.getTokens();
     let authReq = req;
     if (tokens && tokens.accessToken) {
       authReq = req.clone({
         headers: req.headers.set('x-auth', tokens.accessToken),
       });
-    }
-    return next.handle(authReq)
-      .pipe(
-        catchError((error) => {
-          if (error.status === 401 && !authReq.url.includes('/login') && !authReq.url.includes('/refresh')) {
-            return this.handle401(authReq, next);
-          }
-          return throwError(() => error);
-        }),
-        // finalize(() => this.loaderService.hide()),
-      );
 
-    // return next.handle(req).pipe(finalize(() => this.loaderService.hide()));
+      return next.handle(authReq)
+        .pipe(
+          catchError((error) => {
+            if (error.status === 401 && !authReq.url.includes('/login') && !authReq.url.includes('/refresh')) {
+              return this.handle401(authReq, next);
+            }
+            return throwError(() => error);
+          }),
+          finalize(() => this.loaderService.hide()),
+        );
+    }
+    return next.handle(req).pipe(finalize(() => this.loaderService.hide()));
   }
 
   handle401(req: HttpRequest<any>, next: HttpHandler) {

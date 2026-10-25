@@ -29,6 +29,7 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
+    position: relative;
     z-index: 100;
     transition: all 0.5s ease-in-out;
 
@@ -71,6 +72,7 @@
       position: relative;
       z-index: 1000;
       pointer-events: auto;
+      width: 163px;
       .button {
         width: 163px;
         cursor: pointer;
@@ -78,6 +80,10 @@
           margin-top: 20px;
         }
       }
+    }
+    .slider-action,
+    .slider-action button {
+      pointer-events: auto !important;
     }
   }
 }

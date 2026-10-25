@@ -1,7 +1,7 @@
 @import "../../../../assets/styles/auth-form";
 
 .signup {
-  flex: 1 0 auto;
+  flex: 1;
   .container {
     display: flex;
     align-items: center;
@@ -9,9 +9,9 @@
     .page-image {
       margin-left: 185px;
 
-      img {
-        vertical-align: center;
-      }
+      //img {
+      //  vertical-align: center;
+      //}
     }
   }
 }
